@@ -3,10 +3,10 @@ include('databaseConnection.class.php');
 
 
 try {
-  $errMsg='';
-  $type='mysql';
-  $param=array("host" => "myHost","username" => "myUserName", "password" => "myPassword", "dbname" =>"myDatabase");
-  $db=new databaseConnection($type,$param);
+  $errMsg = '';
+  $type = 'mysql';
+  $param = array("host" => "myHost", "username" => "myUserName", "password" => "myPassword", "dbname" => "myDatabase");
+  $db = new databaseConnection($type, $param);
   if ($db->isLastConnectSuccessful()) {
     $con = $db->connect();
     $sql = "SELECT * FROM messages WHERE msg = 'sample'";
@@ -16,13 +16,12 @@ try {
 
     foreach ($stmt->fetchAll() as $row) {
       $rtn = false;
-      $errMsg.="This Message already exist!";
+      $errMsg .= "This Message already exist!";
     }
   } else {
-    $errMsg.=$db->connectionError();
+    $errMsg .= $db->connectionError();
   }
   $db->closeConnection();
 } catch (PDOException $e) {
-  $errMsg.=$db->connectionError();
+  $errMsg .= $db->connectionError();
 }
-
